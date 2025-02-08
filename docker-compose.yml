@@ -9,7 +9,7 @@ services:
       host:
         ipv4_address: 172.29.0.2
     ports:
-      - "5000:5000"
+      - "5001:5000"
     depends_on:
         - dicomhawk
  

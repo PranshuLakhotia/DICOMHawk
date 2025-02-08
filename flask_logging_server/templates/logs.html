@@ -9,6 +9,14 @@
 <body>
     <div class="container">
         <h1>Server Logs</h1>
+        <div class="controls-container">
+            <button id="refresh-logs" class="action-button refresh-button">
+                <span class="icon">🔄</span> Refresh Logs
+            </button>
+            <button id="clear-logs" class="action-button clear-button">
+                <span class="icon">🧹</span> Clear Logs
+            </button>
+        </div>
         <pre id="logs">
             <!-- Logs will be dynamically updated here -->
         </pre>

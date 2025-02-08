@@ -109,4 +109,17 @@ def handle_exception(e):
     exception_logger.error(f"Unhandled exception: {e}")
     return jsonify({"error": "Internal Server Error"}), 500
 
+
+@app.route('/clear_logs', methods=['POST'])
+def clear_logs():
+    try:
+        with open(log_file_path, 'w') as f:
+            f.write('')
+        with open(simplified_log_file_path, 'w') as f:
+            f.write('')
+        return jsonify({"success": True})
+    except Exception as e:
+        exception_logger.error(f"Error clearing logs: {e}")
+        return jsonify({"success": False, "error": str(e)}), 500
+    
 app.run(host='172.29.0.2',debug=True,port=5000)

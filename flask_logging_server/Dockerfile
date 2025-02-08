@@ -5,7 +5,9 @@ COPY . .
  
  
 # Set the working directory in the container
-WORKDIR /.
+ WORKDIR /.
+ COPY requirements.txt .
+ RUN pip install --user -r requirements.txt
  
 RUN pip install flask
  
@@ -14,3 +16,4 @@ EXPOSE 5000
  
 # Run the app
 CMD ["python","-u", "logserver.py"]
+

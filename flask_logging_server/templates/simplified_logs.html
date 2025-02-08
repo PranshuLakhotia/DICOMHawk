@@ -7,6 +7,24 @@
 <body>
     <h1>Simplified Logs</h1>
     <div id="logs-container">
+        <div class="controls-container">
+            <div class="left-controls">
+                <div class="search-group">
+                    <input type="text" id="session-id-search" placeholder="Search by Session ID...">
+                    <button id="search-button">
+                        <span class="icon">🔍</span> Search
+                    </button>
+                </div>
+            </div>
+            <div class="right-controls">
+                <button class="action-button refresh-button">
+                    <span class="icon">🔄</span> Refresh Logs
+                </button>
+                <button class="action-button clear-button">
+                    <span class="icon">🧹</span> Clear Logs
+                </button>
+            </div>
+        </div>
         <table id="logs-table">
             <thead>
                 <tr>
