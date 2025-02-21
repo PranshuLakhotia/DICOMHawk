@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}DICOMHawk - Honeypot DICOM Server{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+    {% block head_scripts %}{% endblock %}
+</head>
+<body>
+    {% block particles %}{% endblock %}
+    
+    <div class="container">
+        {% block content %}{% endblock %}
+        
+        {% include 'footer.html' %}
+    </div>
+    
+    {% block body_scripts %}{% endblock %}
+</body>
+</html>
