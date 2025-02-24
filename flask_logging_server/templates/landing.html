@@ -32,6 +32,11 @@
                     <a href="{{ url_for('status') }}">Server Status</a>
                     <p>Check the current status and number of active associations.</p>
                 </li>
+                <li>
+                    <button id="theme-toggle" class="action-button">
+                        <span class="icon">🌙</span> Toggle Dark Mode
+                    </button>
+                </li>
             </ul>
         </nav>
         <footer>
@@ -39,7 +44,7 @@
         </footer>
     </div>
     <script>
-        particlesJS.load('particles-js', '{{ url_for('static', filename='particles.json') }}', function() {
+        particlesJS.load("particles-js", "{{ url_for('static', filename='particles.json') }}", function() {
             console.log('particles.js loaded - callback');
         });
     </script>

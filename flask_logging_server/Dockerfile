@@ -6,6 +6,8 @@ COPY . .
  
 # Set the working directory in the container
 WORKDIR /.
+COPY requirements.txt .
+RUN pip install --user -r requirements.txt
  
 RUN pip install flask
  

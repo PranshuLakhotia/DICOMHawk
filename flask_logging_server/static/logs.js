@@ -91,3 +91,76 @@ document.addEventListener("DOMContentLoaded", function () {
     // Set interval to fetch logs every 5 seconds
     setInterval(fetchLogs, 5000);
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const themeToggle = document.getElementById('theme-toggle');
+
+    if (themeToggle) {
+        // Load saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<span class="icon">☀️</span> Toggle Light Mode';
+        }
+
+        // Add event listener to the button
+        themeToggle.addEventListener('click', function () {
+            document.body.classList.toggle('dark-mode');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            themeToggle.innerHTML = isDarkMode ? '<span class="icon">☀️</span> Toggle Light Mode' : '<span class="icon">🌙</span> Toggle Dark Mode';
+        });
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Session ID Search Functionality
+    const searchButton = document.getElementById('search-button');
+    const sessionIdInput = document.getElementById('session-id-search');
+
+    searchButton.addEventListener('click', function() {
+        const searchTerm = sessionIdInput.value.trim().toLowerCase();
+        const rows = document.querySelectorAll("#logs-table tbody tr");
+        let hasMatches = false;
+
+        rows.forEach(row => {
+            const sessionCell = row.querySelector("td:nth-child(1)"); // Adjust index if needed
+            if (sessionCell) {
+                const sessionId = sessionCell.textContent.toLowerCase();
+                if (sessionId.includes(searchTerm)) {
+                    row.style.display = "";
+                    row.classList.add('highlight-match');
+                    hasMatches = true;
+                } else {
+                    row.style.display = "none";
+                    row.classList.remove('highlight-match');
+                }
+            }
+        });
+
+        if (!hasMatches && searchTerm) {
+            showToast('No matching sessions found!', 'warning');
+        }
+    });
+
+    // Clear Search
+    sessionIdInput.addEventListener('input', function(e) {
+        if (e.target.value === '') {
+            document.querySelectorAll("#logs-table tbody tr").forEach(row => {
+                row.style.display = "";
+                row.classList.remove('highlight-match');
+            });
+        }
+    });
+});
+
+// Toast Notification System
+function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.textContent = message;
+
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
