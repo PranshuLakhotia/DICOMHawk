@@ -18,6 +18,13 @@ import json
 import time
 import random
 
+
+from pynetdicom import AE, evt
+from pynetdicom.sop_class import VerificationSOPClass
+from dicom_parser import DICOMParser
+import logging
+
+
 # Set up logging
 log_directory = '/app/logs'
 simplified_log_directory = '/app/simplified_logs'
@@ -230,6 +237,17 @@ def handle_store(event):
     assoc_id = assoc_sessions.get(event.assoc, str(int(time.time() * 1000000)))
     store_id = str(int(time.time() * 1000000))
     detailed_logger.info(f"C-STORE request received: {event.dataset}")
+    parser = DICOMParser(event.file_meta.filename)
+    
+    patient_info = parser.get_patient_info()
+    study_info = parser.get_study_info()
+    series_info = parser.get_series_info()
+
+    logging.info(f"Received file: {event.file_meta.filename}")
+    logging.info(f"Patient Info: {patient_info}")
+    logging.info(f"Study Info: {study_info}")
+    logging.info(f"Series Info: {series_info}")
+
     log_simplified_message({
         "session_id": assoc_id,
         "ID": store_id,
@@ -335,6 +353,7 @@ def start_dicom_server():
         print(f"Port {dicom_port} is in use. Please free up the port and try again.")
         return
     ae.start_server(('172.29.0.3', dicom_port), evt_handlers=handlers)
+
 
 
 
